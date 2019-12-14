@@ -1,4 +1,3 @@
-
 class Token {
   constructor(tid, value, category, position, lineNumber) {
     this.tid = tid;
@@ -8,3 +7,5 @@ class Token {
     this.lineNumber = lineNumber;
   }
 }
+
+module.exports.Token = Token;
