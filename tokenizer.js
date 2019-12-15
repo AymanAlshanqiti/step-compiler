@@ -139,7 +139,7 @@ class Tokenizer {
         return this.numberTokenizer();
       } else if (letters.includes(character.toLowerCase()) || character === '_') {
         return this.identifierTokenizer();
-      } else if ((character == ' ') || (character === '\n')) {
+      } else if ((character == ' ') || (character == '\n')) {
         return this.whitespaceTokenizer();
       } else if (character == '#') {
         return this.oneLineCommentTokenizer()
