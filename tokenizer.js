@@ -71,10 +71,6 @@ class Tokenizer {
   whitespaceTokenizer = () => {
     let character = this.sourceCode[this.position];
     let token = new tokenFile.Token('whitespace', character, 'whitespace', this.position, this.lineNumber);
-    // console.log('loooooool');
-    if (character == '\n') {
-      this.line_number += 1;
-    }
     this.position += 1;
     while (!this.isEof()) {
       character = this.sourceCode[this.position]
@@ -91,6 +87,25 @@ class Tokenizer {
     }
     return token;
   }
+
+  oneLineCommentTokenizer = () => {
+    this.position += 1;
+    let character = this.sourceCode[this.position];
+    let token = new tokenFile.Token('one_line_comment', character, 'comment', this.position, this.lineNumber);
+    console.log(token.value);
+    this.position += 1;
+    while (!this.isEof()) {
+      character = this.sourceCode[this.position];
+      if (character == '\n') {
+        this.position -= 1;
+        break;
+      } else {
+        token.value += character;
+        this.position += 1;
+      }
+    }
+    return token;
+  }
  
   tokenize = () => {
     this.position += 1;
@@ -102,7 +117,9 @@ class Tokenizer {
         return this.identifierTokenizer();
       } else if ((character == ' ') || (character === '\n')) {
         return this.whitespaceTokenizer();
-      } else {
+      } else if (character == '#') {
+        return this.oneLineCommentTokenizer()
+      } else{
         return new tokenFile.Token('error', character, 'error', this.position, this.lineNumber);
       }
     }
