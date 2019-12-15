@@ -80,12 +80,9 @@ class Tokenizer {
       } else {
         return new tokenFile.Token('error', character, 'error', this.position, this.lineNumber);
       }
-      this.position += 1;
     }
-
     return new tokenFile.Token('EOF', 'EOF', 'EOF', this.position, this.lineNumber);
   }
-
 }
   
 module.exports.Tokenizer = Tokenizer;
