@@ -7,7 +7,7 @@ class Tokenizer {
   constructor(sourceCode, stepKeywords=[], punctuations={}, ignoreWhitespace=false) {
     this.position = -1;
     this.lineNumber = 1;
-    this.ignoreWhitespace = true;
+    this.ignoreWhitespace = ignoreWhitespace;
     this.stepKeywords = stepKeywords;
     this.punctuations = punctuations;
     this.sourceCode = sourceCode;
@@ -83,7 +83,7 @@ class Tokenizer {
         }
         token.value += character;
         this.position += 1;
-      } 
+      }
     }
     return token;
   }
