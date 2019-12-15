@@ -19,10 +19,11 @@ const stepPunctuations = {
   
 let sourceCode = fs.readFileSync('./examples/main.stp').toString('utf8');
 let tokenizer = new tokenizerFile.Tokenizer(sourceCode, stepKeywords, stepPunctuations, true);
+let tokens = [];
 
-while (! tokenizer.isEof()) {
-  console.log(tokenizer.tokenize());
+while (!tokenizer.isEof()) {
+  tokens.push(tokenizer.tokenize());
 }
 
-
-// let parser = new parserFile.Parser(tokenizer);
+let parser = new parserFile.Parser(tokens);
+console.log(parser);
