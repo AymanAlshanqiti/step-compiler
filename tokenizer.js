@@ -52,7 +52,7 @@ class Tokenizer {
     this.position += 1;
     while (!this.isEof()) {
       character = this.sourceCode[this.position]
-      if (!(letters.includes(character.toLowerCase())) || (character == '_')) {
+      if (!((letters.includes(character.toLowerCase())) || (character == '_') || (character in numbers))) {
         this.position -= 1;
         break;
       } else {
