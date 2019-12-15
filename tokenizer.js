@@ -92,7 +92,6 @@ class Tokenizer {
     this.position += 1;
     let character = this.sourceCode[this.position];
     let token = new tokenFile.Token('one_line_comment', character, 'comment', this.position, this.lineNumber);
-    console.log(token.value);
     this.position += 1;
     while (!this.isEof()) {
       character = this.sourceCode[this.position];
@@ -105,6 +104,31 @@ class Tokenizer {
       }
     }
     return token;
+  }
+
+  multiLineCommentTokenizer = () => {
+    if (this.peek() == '*') {
+      this.position += 2;
+      let character = this.sourceCode[this.position];
+      let token = new tokenFile.Token('multi_line_comment', character, 'comment', this.position, this.lineNumber);
+      this.position += 1;
+      while (!this.isEof()) {
+        character = this.sourceCode[this.position];
+        if (character == '*') {
+          if (this.peek() == '/') {
+            this.position += 2;
+            break;
+          } else {
+            token.value += character
+            this.position += 1;
+          }
+        } else {
+          token.value += character
+          this.position += 1;
+        }
+      }
+      return token;
+    }
   }
  
   tokenize = () => {
@@ -119,7 +143,9 @@ class Tokenizer {
         return this.whitespaceTokenizer();
       } else if (character == '#') {
         return this.oneLineCommentTokenizer()
-      } else{
+      } else if (character == '/') {
+        return this.multiLineCommentTokenizer();
+      } else {
         return new tokenFile.Token('error', character, 'error', this.position, this.lineNumber);
       }
     }

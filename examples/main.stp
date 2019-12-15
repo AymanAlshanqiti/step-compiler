@@ -1,2 +1,3 @@
-23 #   this is a 
-comment  
+/* multi line
+comment  3*/ # one line comment
+123 let fileSize 33 ;
