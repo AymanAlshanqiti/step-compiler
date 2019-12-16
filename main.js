@@ -19,7 +19,7 @@ const stepPunctuations = {
 };
   
 let sourceCode = fs.readFileSync('./examples/main.stp').toString('utf8');
-let tokenizer = new tokenizerFile.Tokenizer(sourceCode, stepKeywords, datatypes, stepPunctuations, true);
+let tokenizer = new tokenizerFile.Tokenizer(sourceCode, stepKeywords, datatypes, stepPunctuations);
 let tokens = [];
 
 while (!tokenizer.isEof()) {
@@ -28,6 +28,10 @@ while (!tokenizer.isEof()) {
 
 let parser = new parserFile.Parser(tokens);
 
-// parser.parse();
+let syntaxTree = [];
+
+syntaxTree = parser.parse();
+console.log('syntaxTree: ', syntaxTree);
+
 // console.log('tokens: ', tokens);
-console.log(parser.parse());
+// console.log(parser.parse());

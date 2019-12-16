@@ -22,7 +22,7 @@ class Parser {
   }
 
   syntaxError = (token, message) => {
-    console.error('[Step(syntax error)]: ' + message + ', ' + token.value + ', line number: ' + token.lineNumber.toString() + ', position: ' + token.position.toString());
+    console.error('[Step(syntax error)]: ' + message + ', ' + (token.value == ' ' ? 'whitespace' : token.value) + ', line number: ' + token.lineNumber.toString() + ', position: ' + token.position.toString());
   }
 
   unexpectedToken = () => {
@@ -44,58 +44,77 @@ class Parser {
     return null;
   }
 
+  match = (value) => {
+    if ((this.peek().category == value) || (this.peek().value == value)) {
+      return true;
+    }
+  }
+
   letParser = () => {
     // let dataType identifier = value
     let letToken = this.tokens[this.position];
-    if (this.peek().category != 'whitespace') {
-      this.unexpectedToken();
-    }
-    this.position += 1;
+    let datatypeToken = null;
+    let identifierToken = null;
+    let valueToken = null;
 
-    if (this.peek().category != 'datatype') {
+    if (!this.match('whitespace')) {
+      this.position += 1;
       this.unexpectedToken();
+    } else {
+      this.position += 1;
+      if (!this.match('datatype')) {
+        this.position += 1;
+        this.unexpectedToken();
+      } else {
+        this.position += 1;
+        datatypeToken = this.tokens[this.position];
+        if (!this.match('whitespace')) {
+          this.position += 1;
+          this.unexpectedToken();
+        } else { 
+          this.position += 1;
+          if (!this.match('identifier')) {
+            this.position += 1;
+            this.unexpectedToken();
+          } else { 
+            this.position += 1;
+            identifierToken = this.tokens[this.position];
+            if (!this.match('whitespace')) {
+              this.position += 1;
+              this.unexpectedToken();
+            } else { 
+              this.position += 1;
+              if (!this.match('=')) {
+                this.position += 1;
+                this.unexpectedToken();
+              } else { 
+                this.position += 1;
+                if (!this.match('whitespace')) {
+                  this.position += 1;
+                  this.unexpectedToken();
+                } else { 
+                  this.position += 1;
+                  if (!this.match('literal')) {
+                    this.position += 1;
+                    this.unexpectedToken();
+                  } else { 
+                    this.position += 1;
+                    valueToken = this.tokens[this.position];
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
-    this.position += 1;
-    let datatypeToken = this.tokens[this.position];
-    
-    if (this.peek().category != 'whitespace') {
-      this.unexpectedToken();
-    }
-    this.position += 1;
-
-    if (this.peek().category != 'identifier') {
-      this.unexpectedToken();
-    }
-    this.position += 1;
-    let identifierToken = this.tokens[this.position];
-
-    if (this.peek().category != 'whitespace') {
-      this.unexpectedToken();
-    }
-    this.position += 1;
-    if (this.peek().value != '=') {
-      this.unexpectedToken();
-    }
-    this.position += 1;
-    if (this.peek().category != 'whitespace') {
-      this.unexpectedToken();
-    }
-    this.position += 1;
-    if (this.peek().category != 'literal') {
-      this.unexpectedToken();
-    }
-    this.position += 1;
-    let valueToken = this.tokens[this.position];
-
     return new LetStatement(letToken, datatypeToken, identifierToken, valueToken);
   }
 
   parse = () => {
     let statements = [];
     this.position += 1;
-    while (!this.isEndOfTokens()) {
-      this.tokens[this.position] = this.tokens[this.position];
-      this.nextToken = this.tokens[this.position + 1];   
+    while (!this.isEndOfTokens()) { 
       if (this.tokens[this.position].category == 'keyword') {
         if (this.tokens[this.position].value == 'let') {
           statements.push(this.letParser());
