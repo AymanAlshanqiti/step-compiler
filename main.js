@@ -26,4 +26,5 @@ while (!tokenizer.isEof()) {
 }
 
 let parser = new parserFile.Parser(tokens);
-console.log(parser);
+
+parser.parse();
