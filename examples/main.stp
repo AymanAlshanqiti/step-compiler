@@ -1,1 +1,2 @@
 let string d = 20
+print(32)

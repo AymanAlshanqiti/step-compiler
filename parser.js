@@ -111,6 +111,11 @@ class Parser {
     return new LetStatement(letToken, datatypeToken, identifierToken, valueToken);
   }
 
+  printParser = () => {
+    // print(value)
+    return 'This is a print statement';
+  }
+
   parse = () => {
     let statements = [];
     this.position += 1;
@@ -118,6 +123,8 @@ class Parser {
       if (this.tokens[this.position].category == 'keyword') {
         if (this.tokens[this.position].value == 'let') {
           statements.push(this.letParser());
+        } else if (this.tokens[this.position].value == 'print') {
+          statements.push(this.printParser());
         }
       }
       this.position += 1;
