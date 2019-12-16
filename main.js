@@ -4,7 +4,8 @@ const parserFile = require('./parser');
 // to import file system module
 const fs = require('fs');
 
-const stepKeywords = ['let', 'var', 'int', 'float', 'string', 'boolean', 'if', 'else', 'for', 'while', 'end', 'print', 'def', 'return'];
+const stepKeywords = ['let', 'if', 'else', 'for', 'while', 'end', 'print', 'def', 'return'];
+const datatypes = ['int', 'float', 'string', 'boolean'];
 const stepPunctuations = {
   '(': 'leftParen',
   ')': 'rightParen',
@@ -18,7 +19,7 @@ const stepPunctuations = {
 };
   
 let sourceCode = fs.readFileSync('./examples/main.stp').toString('utf8');
-let tokenizer = new tokenizerFile.Tokenizer(sourceCode, stepKeywords, stepPunctuations, true);
+let tokenizer = new tokenizerFile.Tokenizer(sourceCode, stepKeywords, datatypes, stepPunctuations, true);
 let tokens = [];
 
 while (!tokenizer.isEof()) {
@@ -27,4 +28,6 @@ while (!tokenizer.isEof()) {
 
 let parser = new parserFile.Parser(tokens);
 
-parser.parse();
+// parser.parse();
+// console.log('tokens: ', tokens);
+console.log(parser.parse());

@@ -4,11 +4,12 @@ const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const letters = 'abcdefghijklmnopqrstuvwxyz';
 
 class Tokenizer {
-  constructor(sourceCode, stepKeywords=[], punctuations={}, ignoreWhitespace=false) {
+  constructor(sourceCode, stepKeywords=[], datatypes=[],  punctuations={}, ignoreWhitespace=false) {
     this.position = -1;
     this.lineNumber = 1;
     this.ignoreWhitespace = ignoreWhitespace;
     this.stepKeywords = stepKeywords;
+    this.datatypes = datatypes;
     this.punctuations = punctuations;
     this.sourceCode = sourceCode;
     this.length = this.sourceCode.length;
@@ -63,6 +64,10 @@ class Tokenizer {
     if (this.stepKeywords.includes(token.value)) {
       token.category = 'keyword';
       token.tid = token.value + '_keyword';
+      return token;
+    } else if (this.datatypes.includes(token.value)) {
+      token.category = 'datatype';
+      token.tid = token.value + '_datatype';
       return token;
     }
     return token;
