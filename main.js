@@ -32,13 +32,17 @@ let syntaxTree = [];
 
 syntaxTree = parser.parse();
 
-toJSON = (tokens) => {
+logTokensInArabic = (tokens) => {
   let tokensArray = tokens;
-  // console.log(tokensArray);
+  let i = 0
+  while (tokensArray.length > i) {
+    console.log('لقد قمت بكتابة القيمة', tokensArray[i].tid, '=>', tokensArray[i].value);
+    i++;
+  }
 }
 
-toJSON(tokens);
+logTokensInArabic(tokens);
 
 // console.log('tokens: ', tokens);
-console.log('syntaxTree: ', syntaxTree);
+// console.log('syntaxTree: ', syntaxTree);
 // console.log(parser.parse());
