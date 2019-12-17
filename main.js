@@ -36,7 +36,13 @@ logTokensInArabic = (tokens) => {
   let tokensArray = tokens;
   let i = 0
   while (tokensArray.length > i) {
-    console.log('لقد قمت بكتابة القيمة', tokensArray[i].tid, '=>', tokensArray[i].value);
+    if (tokensArray[i].category == 'new_line') {
+      console.log('لقد قمت بكتابة القيمة', tokensArray[i].tid, '=>', 'new line');
+    } else if (tokensArray[i].category == 'whitespace') {
+        console.log('لقد قمت بكتابة القيمة', tokensArray[i].tid, '=>', 'whitespace');
+    } else {
+      console.log('لقد قمت بكتابة القيمة', tokensArray[i].tid, '=>', tokensArray[i].value);
+    }
     i++;
   }
 }
