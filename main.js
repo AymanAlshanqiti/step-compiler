@@ -4,8 +4,8 @@ const parserFile = require('./parser');
 // to import file system module
 const fs = require('fs');
 
-const stepKeywords = ['let', 'if', 'else', 'for', 'while', 'end', 'print', 'def', 'return'];
-const datatypes = ['int', 'float', 'string', 'boolean'];
+const stepKeywords = ['let', 'for', 'print'];
+const datatypes = ['int', 'string', 'boolean'];
 const stepPunctuations = {
   '(': 'leftParen',
   ')': 'rightParen',
@@ -51,4 +51,3 @@ logTokensInArabic = (tokens) => {
 
 // console.log('tokens: ', tokens);
 console.log('syntaxTree: ', syntaxTree);
-// console.log(parser.parse());

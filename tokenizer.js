@@ -69,6 +69,10 @@ class Tokenizer {
       token.tid = token.value + '_datatype';
       return token;
     }
+    if ((token.value == 'true') || (token.value == 'false')) {
+      token.tid = 'boolean_literal';
+      token.category = 'literal';
+    }
     return token;
   }
 
