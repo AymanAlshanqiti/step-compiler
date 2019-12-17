@@ -47,8 +47,8 @@ logTokensInArabic = (tokens) => {
   }
 }
 
-logTokensInArabic(tokens);
+// logTokensInArabic(tokens);
 
-// console.log('tokens: ', tokens);
+console.log('tokens: ', tokens);
 // console.log('syntaxTree: ', syntaxTree);
 // console.log(parser.parse());

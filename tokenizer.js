@@ -36,7 +36,6 @@ class Tokenizer {
     while (!this.isEof()) {
       character = this.sourceCode[this.position];
       if (!(character in numbers)){
-        this.position -= 1;
         break;
       } else {
         token.value += character;
@@ -53,7 +52,6 @@ class Tokenizer {
     while (!this.isEof()) {
       character = this.sourceCode[this.position]
       if (!((letters.includes(character.toLowerCase())) || (character == '_') || (character in numbers))) {
-        this.position -= 1;
         break;
       } else {
         token.value += character;
@@ -91,7 +89,6 @@ class Tokenizer {
     while (!this.isEof()) {
       character = this.sourceCode[this.position];
       if (character == '\n') {
-        this.position -= 1;
         break;
       } else {
         token.value += character;
@@ -143,6 +140,23 @@ class Tokenizer {
     let token = new tokenFile.Token('equal', character, 'equal', this.position, this.lineNumber);
     return token;
   }
+
+  stringTokenizer = () => {
+    this.position += 1;
+    let character = this.sourceCode[this.position];
+    let token = new tokenFile.Token('string', character, 'string', this.position, this.lineNumber);
+    this.position += 1;
+    while (!this.isEof()) {
+      character = this.sourceCode[this.position];
+      if (character == '"') {
+        break;
+      } else {
+        token.value += character;
+        this.position += 1;
+      }
+    }
+    return token;
+  }
  
   tokenize = () => {
     this.position += 1;
@@ -158,12 +172,14 @@ class Tokenizer {
         return this.oneLineCommentTokenizer()
       } else if (character == '/') {
         return this.multiLineCommentTokenizer();
-      } else if (character == '(')  {
+      } else if (character == '(') {
         return this.leftParenTokenizer(); 
-      } else if (character == ')')  {
+      } else if (character == ')') {
         return this.rightParenTokenizer(); 
-      } else if (character == '=')  {
+      } else if (character == '=') {
         return this.equalTokenizer(); 
+      } else if (character == '"') {
+        return this.stringTokenizer(); 
       } else {
         return new tokenFile.Token('error', character, 'error', this.position, this.lineNumber);
       }
