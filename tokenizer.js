@@ -131,6 +131,18 @@ class Tokenizer {
     let token = new tokenFile.Token('leftParen', character, 'punctuation', this.position, this.lineNumber);
     return token;
   }
+
+  rightParenTokenizer = () => {
+    let character = this.sourceCode[this.position];
+    let token = new tokenFile.Token('rightParen', character, 'punctuation', this.position, this.lineNumber);
+    return token;
+  }
+
+  equalTokenizer = () => {
+    let character = this.sourceCode[this.position];
+    let token = new tokenFile.Token('equal', character, 'equal', this.position, this.lineNumber);
+    return token;
+  }
  
   tokenize = () => {
     this.position += 1;
@@ -148,6 +160,10 @@ class Tokenizer {
         return this.multiLineCommentTokenizer();
       } else if (character == '(')  {
         return this.leftParenTokenizer(); 
+      } else if (character == ')')  {
+        return this.rightParenTokenizer(); 
+      } else if (character == '=')  {
+        return this.equalTokenizer(); 
       } else {
         return new tokenFile.Token('error', character, 'error', this.position, this.lineNumber);
       }
