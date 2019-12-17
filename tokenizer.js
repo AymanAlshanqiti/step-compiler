@@ -129,7 +129,6 @@ class Tokenizer {
   leftParenTokenizer = () => {
     let character = this.sourceCode[this.position];
     let token = new tokenFile.Token('leftParen', character, 'punctuation', this.position, this.lineNumber);
-    this.position += 1;
     return token;
   }
  

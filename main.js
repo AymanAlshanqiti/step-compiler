@@ -31,7 +31,14 @@ let parser = new parserFile.Parser(tokens);
 let syntaxTree = [];
 
 syntaxTree = parser.parse();
-// console.log('syntaxTree: ', syntaxTree);
+
+toJSON = (tokens) => {
+  let tokensArray = tokens;
+  // console.log(tokensArray);
+}
+
+toJSON(tokens);
 
 console.log('tokens: ', tokens);
+// console.log('syntaxTree: ', syntaxTree);
 // console.log(parser.parse());
