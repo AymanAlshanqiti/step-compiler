@@ -55,7 +55,7 @@ class Parser {
   }
 
   letParser = () => {
-    // let dataType identifier = value
+    // let dataType identifier = ("string_literal value" or integer_literal value)
     let letToken = this.tokens[this.position];
     let datatypeToken = null;
     let identifierToken = null;
@@ -116,7 +116,7 @@ class Parser {
   }
 
   printParser = () => {
-    // print(value)
+    // print("string_literal value" or integer_literal value)
     let printToken = this.tokens[this.position];
     let valueToken = null;
     
