@@ -124,7 +124,7 @@ class Parser {
       this.position += 1
       this.unexpectedToken();
     } else {
-      this.position += 1;
+      this.position += 2;
       valueToken = this.tokens[this.position];
       if (!this.match(')')) {
         this.position += 1

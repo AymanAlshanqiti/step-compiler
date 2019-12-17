@@ -39,6 +39,6 @@ toJSON = (tokens) => {
 
 toJSON(tokens);
 
-console.log('tokens: ', tokens);
-// console.log('syntaxTree: ', syntaxTree);
+// console.log('tokens: ', tokens);
+console.log('syntaxTree: ', syntaxTree);
 // console.log(parser.parse());
