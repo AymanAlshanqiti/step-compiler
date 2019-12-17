@@ -22,10 +22,7 @@ class Parser {
     this.tokens = tokens;
     this.length = this.tokens.length;
     this.position = -1;
-    // this.currentToken = null;
-    // this.nextToken = null;
     this.currentLevel = 0;
-    // this.isFirstToken = true;
   }
 
   syntaxError = (token, message) => {

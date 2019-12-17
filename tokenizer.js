@@ -75,19 +75,10 @@ class Tokenizer {
   whitespaceTokenizer = () => {
     let character = this.sourceCode[this.position];
     let token = new tokenFile.Token('whitespace', character, 'whitespace', this.position, this.lineNumber);
-    this.position += 1;
-    while (!this.isEof()) {
-      character = this.sourceCode[this.position]
-      if (!character == ' ') {
-        this.position -= 1;
-        break;
-      } else { // isspace
-        if (character == '\n') {
-          this.lineNumber += 1;
-        }
-        token.value += character;
-        this.position += 1;
-      }
+    if (character == '\n') {
+      token.tid = 'new_line';
+      token.category = 'new_line';
+      this.lineNumber += 1;
     }
     return token;
   }
@@ -134,6 +125,13 @@ class Tokenizer {
       return token;
     }
   }
+
+  leftParenTokenizer = () => {
+    let character = this.sourceCode[this.position];
+    let token = new tokenFile.Token('leftParen', character, 'punctuation', this.position, this.lineNumber);
+    this.position += 1;
+    return token;
+  }
  
   tokenize = () => {
     this.position += 1;
@@ -149,6 +147,8 @@ class Tokenizer {
         return this.oneLineCommentTokenizer()
       } else if (character == '/') {
         return this.multiLineCommentTokenizer();
+      } else if (character == '(')  {
+        return this.leftParenTokenizer(); 
       } else {
         return new tokenFile.Token('error', character, 'error', this.position, this.lineNumber);
       }

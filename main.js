@@ -31,7 +31,7 @@ let parser = new parserFile.Parser(tokens);
 let syntaxTree = [];
 
 syntaxTree = parser.parse();
-console.log('syntaxTree: ', syntaxTree);
+// console.log('syntaxTree: ', syntaxTree);
 
-// console.log('tokens: ', tokens);
+console.log('tokens: ', tokens);
 // console.log(parser.parse());
