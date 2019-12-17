@@ -1,2 +1,2 @@
-let string d = 20
-print(32)
+print(30)
+let int size = 200

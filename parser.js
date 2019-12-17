@@ -10,6 +10,13 @@ class LetStatement {
   }
 }
 
+class PrintStatement {
+  constructor(token, value) {
+    this.token = token;
+    this.value = value;
+  }
+}
+
 class Parser {
   constructor(tokens=[]) {
     this.tokens = tokens;
@@ -113,7 +120,22 @@ class Parser {
 
   printParser = () => {
     // print(value)
-    return 'This is a print statement';
+    let printToken = this.tokens[this.position];
+    let valueToken = null;
+    
+    if (!this.match('(')) {
+      this.position += 1
+      this.unexpectedToken();
+    } else {
+      this.position += 2;
+      valueToken = this.tokens[this.position];
+      if (!this.match(')')) {
+        this.position += 1
+        this.unexpectedToken();
+      }
+    }
+
+    return new PrintStatement(printToken, valueToken);
   }
 
   parse = () => {
