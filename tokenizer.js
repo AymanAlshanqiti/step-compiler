@@ -36,6 +36,7 @@ class Tokenizer {
     while (!this.isEof()) {
       character = this.sourceCode[this.position];
       if (!(character in numbers)){
+        this.position -= 1;
         break;
       } else {
         token.value += character;
@@ -52,6 +53,7 @@ class Tokenizer {
     while (!this.isEof()) {
       character = this.sourceCode[this.position]
       if (!((letters.includes(character.toLowerCase())) || (character == '_') || (character in numbers))) {
+        this.position -= 1;
         break;
       } else {
         token.value += character;
@@ -89,6 +91,7 @@ class Tokenizer {
     while (!this.isEof()) {
       character = this.sourceCode[this.position];
       if (character == '\n') {
+        this.position -= 1;
         break;
       } else {
         token.value += character;
@@ -144,7 +147,7 @@ class Tokenizer {
   stringTokenizer = () => {
     this.position += 1;
     let character = this.sourceCode[this.position];
-    let token = new tokenFile.Token('string', character, 'string', this.position, this.lineNumber);
+    let token = new tokenFile.Token('string_literal', character, 'literal', this.position, this.lineNumber);
     this.position += 1;
     while (!this.isEof()) {
       character = this.sourceCode[this.position];
